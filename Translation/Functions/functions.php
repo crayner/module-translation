@@ -80,12 +80,12 @@ class functions extends mFBase
 				return ;
 			}
 			$matrix[$key] = $trans ;
-			if (file_put_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml', Yaml::dump($matrix)))
+			if (@file_put_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml', Yaml::dump($matrix)))
 			{
 				$this->view->displayMessage('Translation was saved successfully.', 'success');
 				return ;
 			}
 		}
-		$this->view->displayMessage('Translation was not saved.');
+		$this->view->displayMessage(array('%s Language code translation was not saved.', array($code)));
 	}
 }

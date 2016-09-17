@@ -56,4 +56,6 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMa
 	$form->addElement('submitBtn', null, 'Merge');
 	
 	$form->render();
+
+// Now check merge.
 }
