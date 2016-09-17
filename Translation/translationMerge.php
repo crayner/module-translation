@@ -26,10 +26,9 @@ use Gibbon\core\helper;
 if (! $this instanceof view) die();
 
 
-if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationManage.php')) {
+if ($this->getSecurity()->isActionAccessible()) {
 	//Proceed!
 	$trail = $this->initiateTrail();
-	$trail->addTrail('Manage Translation', array('q'=>"/modules/Translation/translationManage.php"));
 	$trail->trailEnd = 'Merge Translation File';
 	$trail->render($this);
 		

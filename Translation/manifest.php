@@ -33,11 +33,11 @@ $url = "http://www.craigrayner.com" ;
 $moduleTables = array();
 
 //Action rows 
-$actionRows[0]["name"] = "Translation" ; 
+$actionRows[0]["name"] = "Manage Translation" ; 
 $actionRows[0]["precedence"] = "0"; 
 $actionRows[0]["category"] = "Translation" ; 
 $actionRows[0]["description"] = "Allows an administrator the ability to manage translation." ;
-$actionRows[0]["URLList"] = "translationManage.php,translationManage_email.php,translationMerge.php" ;
+$actionRows[0]["URLList"] = "translationManage.php, translationManage_email.php, translationManageMerge.php" ;
 $actionRows[0]["entryURL"] = "translationManage.php" ;
 $actionRows[0]["defaultPermissionAdmin"] = "Y" ; 
 $actionRows[0]["defaultPermissionTeacher"] = "N" ; 
@@ -48,3 +48,19 @@ $actionRows[0]["categoryPermissionStaff"] = "N" ;
 $actionRows[0]["categoryPermissionStudent"] = "N" ;
 $actionRows[0]["categoryPermissionParent"] = "N" ; 
 $actionRows[0]["categoryPermissionOther"] = "N" ; 
+
+$actionRows[1]["name"] = "Merge Translation" ; 
+$actionRows[1]["precedence"] = "0"; 
+$actionRows[1]["category"] = "Translation" ; 
+$actionRows[1]["description"] = "Allows an administrator to merge a received file with the existing translation file." ;
+$actionRows[1]["URLList"] = "translationMerge.php, translationMergeProcess.php" ;
+$actionRows[1]["entryURL"] = "translationMerge.php" ;
+$actionRows[1]["defaultPermissionAdmin"] = "Y" ; 
+$actionRows[1]["defaultPermissionTeacher"] = "N" ; 
+$actionRows[1]["defaultPermissionStudent"] = "N" ; 
+$actionRows[1]["defaultPermissionParent"] = "N" ; 
+$actionRows[1]["defaultPermissionSupport"] = "N" ; 
+$actionRows[1]["categoryPermissionStaff"] = "N" ; 
+$actionRows[1]["categoryPermissionStudent"] = "N" ;
+$actionRows[1]["categoryPermissionParent"] = "N" ; 
+$actionRows[1]["categoryPermissionOther"] = "N" ; 

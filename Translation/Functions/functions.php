@@ -21,12 +21,13 @@ namespace Module\Translation\Functions ;
 
 use Gibbon\core\moduleFunctions as mFBase ;
 use Gibbon\core\module as helper ;
+use Gibbon\core\trans ;
 use Symfony\Component\Yaml\Yaml ;
 use Symfony\Component\Yaml\Exception\ParseException ;
 
 /**
  * module Functions
- * @version	16th September 2016
+ * @version	17th September 2016
  * @since	16th September 2016
  * @package		Module
  */
@@ -87,5 +88,61 @@ class functions extends mFBase
 			}
 		}
 		$this->view->displayMessage(array('%s Language code translation was not saved.', array($code)));
+	}
+
+	/**
+	 * Generate Merge Form
+	 * 
+	 * @version	17th September 2016
+	 * @since	17th September 2016
+	 * @param	string	$code	Language Code
+	 * @return	void
+	 */
+	public function generateMergeForm($code)
+	{
+		$merge = $this->loadMerge($code);
+		if ($merge !== false)
+		{
+			$form = $this->view->getForm(null, array('q'=>'/modules/Translation/translationManageMerge.php'), true);
+			
+			$el = $form->addElement('h3', null, 'Merge Translation Conflicts');
+			$el->note = 'These phrases already existed in the master file, but changes to the translation are proposed.  Select the change you wish to use for translation.';
+			foreach ($merge as $key=>$w)
+			{
+				$form->startWell();
+				$el = $form->addElement('h4', null, $key);
+				$exist = is_array($w['existing']) ? Yaml::dump($w['existing']) : $w['existing'];
+				$proposed = is_array($w['new']) ? Yaml::dump($w['new']) : $w['new'];
+				$el->note = array('%s', array('<strong>'.trans::__('Original').':</strong> '.$exist.'<br /><strong>'.trans::__('Proposed').':</strong> '.$proposed));
+				
+				$el = $form->addElement('yesno', 'choice['.base64_encode($key).']', 'N');
+				$el->nameDisplay = 'Choose Original';
+				$el->description = 'The default choice is set to the proposed translation by this form.';
+				
+				$form->endWell();
+			}
+			$form->addElement('hidden', 'code', $code);
+			$form->addElement('submitBtn', null);
+			$form->render();
+		}
+	}
+
+	/**
+	 * loadMerge
+	 * 
+	 * @version	17th September 2016
+	 * @since	17th September 2016
+	 * @param	string	$code	Language Code
+	 * @return	void
+	 */
+	public function loadMerge($code)
+	{
+		$merge = false ;
+		if (file_exists(GIBBON_ROOT . 'i18n/'.$code.'/merge.yml'))
+		{
+			$merge = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/'.$code.'/merge.yml'));
+			if (empty($merge)) $merge = false;
+		}
+		return $merge ;
 	}
 }

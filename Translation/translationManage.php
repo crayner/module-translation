@@ -153,7 +153,9 @@ if ($this->getSecurity()->isActionAccessible()) {
 	$btn->additional = '';
 
 	$form->render();
-
+	
+	$mf->generateMergeForm($code);
+	
 	$form = $this->getForm(null, array('q' => '/modules/Translation/translationManage_email.php'), true);
 	$el = $form->addElement('h3', null, 'Email Translation File');
 	$el->note = 'Once you have completed the changes, you can email the file to Gibbon Support, (or someone else) for review or inclusion in the source code of the Gibbon Project.';

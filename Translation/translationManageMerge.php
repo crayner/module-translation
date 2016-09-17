@@ -20,51 +20,51 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 namespace Module\Translation ;
 
 use Gibbon\core\post ;
-use Gibbon\core\trans ;
 use Gibbon\core\helper ;
-use Gibbon\core\fileManager ;
+use Gibbon\core\trans ;
+use Gibbon\core\mailer ;
+use Module\Translation\Functions\functions ;
 use Symfony\Component\Yaml\Yaml ;
 
 if (! $this instanceof post) die();
 
-$URL = array('q' => '/modules/Translation/translationMerge.php');
+$URL = array('q' => '/modules/Translation/translationManage.php');
 
-if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMerge.php')) {
-	//Proceed!
-	if (empty($_POST['code']) || empty($_FILES)) 
+if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationManage.php'))
+{
+
+	$mf = new functions($this);
+	
+	if (empty($_POST['code']) || empty($_POST['choice']) || ! is_array($_POST['choice']))
 	{
 		$this->insertMessage('return.error.1');
 		$this->redirect($URL);
 	}
-	$fm = new fileManager($this);
-	$merge = Yaml::parse($fm->extractFileContent('file'));
+	$code = filter_var($_POST['code']);
 	
-	$lang = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/gibbon.yml'));
-	$changes = array();
-	foreach($merge as $q=>$w)
+	$source = $mf->loadMatrix($code);
+	
+	$merge = $mf->loadMerge($code);
+	if ($merge === false)
 	{
-		$e = trim($q, "'");
-		$e = trim($e, '"');
-		if (empty($lang[$e]))
-		{
-			$lang[$e] = $w ;
-			unset($merge[$e]);
-		} 
-		elseif ($lang[$e] == $w)
-		{
-			unset($merge[$e]);
-		}
-		else
-		{
-			$changes[$e]['existing'] = $lang[$e];
-			$changes[$e]['new'] = $w;
-			unset($merge[$e]);
-		}
+		$this->insertMessage('The correct merge file for translation was not found.');
+		$this->redirect($URL);
+	}
+
+	foreach($_POST['choice'] as $q=>$w)
+	{
+		$key = base64_decode($q);
+		$value = $w == 'Y' ? $merge[$key]['existing'] : $merge[$key]['new'] ;
+		$source[$key] = $value;
+		unset($merge[$key]);
 	}
 	
-	file_put_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/gibbon.yml', Yaml::dump($lang));
-	if (! empty($changes))
-		file_put_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/merge.yml', Yaml::dump($changes));
+	if (false === file_put_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml', Yaml::dump($source)))
+	{
+		$this->insertMessage('Changes to the translation file failed to save.');
+		$this->redirect($URL);
+	}
+	unlink(GIBBON_ROOT.'i18n/'.$code.'/merge.yml');
 	$this->insertMessage('return.success.0', 'success');
 	$this->redirect($URL);
 }
