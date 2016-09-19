@@ -41,7 +41,7 @@ if ($this->getSecurity()->isActionAccessible()) {
 	
 	$el = $form->addElement('select', 'code', '');
 	$el->nameDisplay = 'Language';
-	$el->description = 'Merger this language';
+	$el->description = 'Merge this language';
 	$el->setPleaseSelect();
 	$lang = $this->config->getLanguages();
 	foreach($lang as $q=>$w)
