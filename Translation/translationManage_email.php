@@ -32,12 +32,12 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMa
 	//Proceed!
 	
 	
-	if (file_exists(GIBBON_ROOT . 'i18n/'.$_POST['code'].'/gibbon.yml'))
+	if (file_exists(GIBBON_ROOT . 'src/i18n/'.$_POST['code'].'/gibbon.yml'))
 	{
 		$mailer = new mailer();
 		
 		$mailer->IsHTML();
-		$mailer->AddAttachment(GIBBON_ROOT . 'i18n/'.$_POST['code'].'/gibbon.yml');      // attachment
+		$mailer->AddAttachment(GIBBON_ROOT . 'src/i18n/'.$_POST['code'].'/gibbon.yml');      // attachment
 		
 		$body = '<p>' . trans::__('Attached is a translation file to merge with the master copy.  It is for the %s language', array($_POST['code'])) . '</p>';
 		$body .= '<p>' . trans::__('Gibbon Site %s', array($this->session->get('organisationName'))) . '</p>';

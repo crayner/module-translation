@@ -13,8 +13,8 @@ use Symfony\Component\Yaml\Yaml ;
 $lang = 'en_GB';  //Never change this line..
 
 $fpo = fopen(GIBBON_ROOT . 'i18n/'.$lang.'/LC_MESSAGES/gibbon.po', 'r');
-if (file_exists(GIBBON_ROOT . 'i18n/'.$lang.'/gibbon.yml'))
-	$x = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/'.$lang.'/gibbon.yml'));
+if (file_exists(GIBBON_ROOT . 'src/i18n/'.$lang.'/gibbon.yml'))
+	$x = Yaml::parse(file_get_contents(GIBBON_ROOT . 'src/i18n/'.$lang.'/gibbon.yml'));
 else
 	$x = array();
 $msg = false;
@@ -40,15 +40,15 @@ while (($line = fgets($fpo)) !== false) {
 	}
 }
 fclose($fpo);
-file_put_contents(GIBBON_ROOT . "i18n/".$lang."/gibbon.yml", Yaml::dump($x));
+file_put_contents(GIBBON_ROOT . "src/i18n/".$lang."/gibbon.yml", Yaml::dump($x));
 
 $gb = $x ;
 
 $lang = 'en_US';
 
 $fpo = fopen(GIBBON_ROOT . 'i18n/'.$lang.'/LC_MESSAGES/gibbon.po', 'r');
-if (file_exists(GIBBON_ROOT . 'i18n/'.$lang.'/gibbon.yml'))
-	$x = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/'.$lang.'/gibbon.yml'));
+if (file_exists(GIBBON_ROOT . 'src/i18n/'.$lang.'/gibbon.yml'))
+	$x = Yaml::parse(file_get_contents(GIBBON_ROOT . 'src/i18n/'.$lang.'/gibbon.yml'));
 else
 	$x = array();
 $msg = false;
@@ -81,4 +81,4 @@ foreach($x as $q=>$w)
 		unset($x[$q]);
 }
 
-file_put_contents(GIBBON_ROOT . "i18n/".$lang."/gibbon.yml", Yaml::dump($x));
+file_put_contents(GIBBON_ROOT . "src/i18n/".$lang."/gibbon.yml", Yaml::dump($x));

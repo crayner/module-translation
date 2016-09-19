@@ -39,7 +39,7 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMe
 	$fm = new fileManager($this);
 	$merge = Yaml::parse($fm->extractFileContent('file'));
 	
-	$lang = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/gibbon.yml'));
+	$lang = Yaml::parse(file_get_contents(GIBBON_ROOT . 'src/i18n/' . $_POST['code'] . '/gibbon.yml'));
 	$changes = array();
 	foreach($merge as $q=>$w)
 	{
@@ -62,9 +62,9 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMe
 		}
 	}
 	
-	file_put_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/gibbon.yml', Yaml::dump($lang));
+	file_put_contents(GIBBON_ROOT . 'src/i18n/' . $_POST['code'] . '/gibbon.yml', Yaml::dump($lang));
 	if (! empty($changes))
-		file_put_contents(GIBBON_ROOT . 'i18n/' . $_POST['code'] . '/merge.yml', Yaml::dump($changes));
+		file_put_contents(GIBBON_ROOT . 'src/i18n/' . $_POST['code'] . '/merge.yml', Yaml::dump($changes));
 	$this->insertMessage('return.success.0', 'success');
 	$this->redirect($URL);
 }

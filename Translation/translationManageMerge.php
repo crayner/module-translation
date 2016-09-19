@@ -59,12 +59,12 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMa
 		unset($merge[$key]);
 	}
 	
-	if (false === file_put_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml', Yaml::dump($source)))
+	if (false === file_put_contents(GIBBON_ROOT.'src/i18n/'.$code.'/gibbon.yml', Yaml::dump($source)))
 	{
 		$this->insertMessage('Changes to the translation file failed to save.');
 		$this->redirect($URL);
 	}
-	unlink(GIBBON_ROOT.'i18n/'.$code.'/merge.yml');
+	unlink(GIBBON_ROOT . 'src/i18n/'.$code.'/merge.yml');
 	$this->insertMessage('return.success.0', 'success');
 	$this->redirect($URL);
 }

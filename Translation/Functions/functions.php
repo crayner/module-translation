@@ -27,7 +27,7 @@ use Symfony\Component\Yaml\Exception\ParseException ;
 
 /**
  * module Functions
- * @version	17th September 2016
+ * @version	19th September 2016
  * @since	16th September 2016
  * @package		Module
  */
@@ -41,7 +41,7 @@ class functions extends mFBase
 	/**
 	 * Load Matrix
 	 * 
-	 * @version	16th September 2016
+	 * @version	19th September 2016
 	 * @since	16th September 2016
 	 * @param	string		$code	Language Code
 	 * @return	array		Matrix
@@ -50,9 +50,9 @@ class functions extends mFBase
 	{
 		$target = array();
 		$this->validLanguage = false ;
-		if (file_exists(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml'))
+		if (file_exists(GIBBON_ROOT.'src/i18n/'.$code.'/gibbon.yml'))
 		{
-			$target = Yaml::parse(file_get_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml'));
+			$target = Yaml::parse(file_get_contents(GIBBON_ROOT.'src/i18n/'.$code.'/gibbon.yml'));
 			$this->validLanguage = true ;
 		}
 		return $target ;
@@ -61,7 +61,7 @@ class functions extends mFBase
 	/**
 	 * Save Translation
 	 * 
-	 * @version	16th September 2016
+	 * @version	19th September 2016
 	 * @since	16th September 2016
 	 * @return	void
 	 */
@@ -81,7 +81,7 @@ class functions extends mFBase
 				return ;
 			}
 			$matrix[$key] = $trans ;
-			if (@file_put_contents(GIBBON_ROOT.'i18n/'.$code.'/gibbon.yml', Yaml::dump($matrix)))
+			if (@file_put_contents(GIBBON_ROOT.'src/i18n/'.$code.'/gibbon.yml', Yaml::dump($matrix)))
 			{
 				$this->view->displayMessage('Translation was saved successfully.', 'success');
 				return ;
@@ -130,7 +130,7 @@ class functions extends mFBase
 	/**
 	 * loadMerge
 	 * 
-	 * @version	17th September 2016
+	 * @version	19th September 2016
 	 * @since	17th September 2016
 	 * @param	string	$code	Language Code
 	 * @return	void
@@ -138,9 +138,9 @@ class functions extends mFBase
 	public function loadMerge($code)
 	{
 		$merge = false ;
-		if (file_exists(GIBBON_ROOT . 'i18n/'.$code.'/merge.yml'))
+		if (file_exists(GIBBON_ROOT . 'src/i18n/'.$code.'/merge.yml'))
 		{
-			$merge = Yaml::parse(file_get_contents(GIBBON_ROOT . 'i18n/'.$code.'/merge.yml'));
+			$merge = Yaml::parse(file_get_contents(GIBBON_ROOT . 'src/i18n/'.$code.'/merge.yml'));
 			if (empty($merge)) $merge = false;
 		}
 		return $merge ;
