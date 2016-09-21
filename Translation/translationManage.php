@@ -53,7 +53,7 @@ if ($this->getSecurity()->isActionAccessible()) {
 	$el->nameDisplay = 'Target Language';
 	$lang = $this->config->getLanguages();
 	foreach($lang as $q=>$w)
-		$el->addOption(trans::__($w), $q);	
+		$el->addOption($this->__($w), $q);	
 	$el->onChangeSubmit();
 	
 	$editAll = isset($_POST['editAll']) ? $_POST['editAll'] : 'N' ;

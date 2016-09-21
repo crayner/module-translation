@@ -45,7 +45,7 @@ if ($this->getSecurity()->isActionAccessible()) {
 	$el->setPleaseSelect();
 	$lang = $this->config->getLanguages();
 	foreach($lang as $q=>$w)
-		$el->addOption(trans::__($w), $q);	
+		$el->addOption($this->__($w), $q);	
 	
 	$el = $form->addElement('file', 'file');
 	$el->setFile('Illegal File Type!', $within = 'yml');

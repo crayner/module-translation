@@ -113,7 +113,7 @@ class functions extends mFBase
 				$el = $form->addElement('h4', null, $key);
 				$exist = is_array($w['existing']) ? Yaml::dump($w['existing']) : $w['existing'];
 				$proposed = is_array($w['new']) ? Yaml::dump($w['new']) : $w['new'];
-				$el->note = array('%s', array('<strong>'.trans::__('Original').':</strong> '.$exist.'<br /><strong>'.trans::__('Proposed').':</strong> '.$proposed));
+				$el->note = array('%s', array('<strong>'.$this->__('Original').':</strong> '.$exist.'<br /><strong>'.$this->__('Proposed').':</strong> '.$proposed));
 				
 				$el = $form->addElement('yesno', 'choice['.base64_encode($key).']', 'N');
 				$el->nameDisplay = 'Choose Original';

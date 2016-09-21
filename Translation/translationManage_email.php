@@ -39,11 +39,11 @@ if ($this->getSecurity()->isActionAccessible('/modules/Translation/translationMa
 		$mailer->IsHTML();
 		$mailer->AddAttachment(GIBBON_ROOT . 'src/i18n/'.$_POST['code'].'/gibbon.yml');      // attachment
 		
-		$body = '<p>' . trans::__('Attached is a translation file to merge with the master copy.  It is for the %s language', array($_POST['code'])) . '</p>';
-		$body .= '<p>' . trans::__('Gibbon Site %s', array($this->session->get('organisationName'))) . '</p>';
+		$body = '<p>' . $this->__('Attached is a translation file to merge with the master copy.  It is for the %s language', array($_POST['code'])) . '</p>';
+		$body .= '<p>' . $this->__('Gibbon Site %s', array($this->session->get('organisationName'))) . '</p>';
 		
-		$mailer->Subject    = trans::__("Translation File Update");
-		$mailer->AltBody    = trans::__("To view the message, please use an HTML compatible email viewer!"); // optional, comment out and test
+		$mailer->Subject    = $this->__("Translation File Update");
+		$mailer->AltBody    = $this->__("To view the message, please use an HTML compatible email viewer!"); // optional, comment out and test
 		$mailer->Body = $body;
 		
 		$mailer->AddEmbeddedImage(GIBBON_ROOT . $this->session->get('organisationLogo'), 'logoImg', 'logoImg.png');
