@@ -34,10 +34,11 @@ if ($this->getSecurity()->isActionAccessible()) {
 		
 	
 	$this->h2('Manage Translation');
+	$this->displayMessage(array('This merge facility is available for you to use, merging the input file with the language file selected. However, it is intended that the merge be done by the developers of Gibbon, as updates from Gibbon will overwrite any changes that you make to the language file.  Should you wish to make a change to any phrase (or word) in the system for your installation, please use the %1$sstring replacement system%2$s.', array('<a href="'.GIBBON_URL.'index.php?q=/modules/System Admin/stringReplacement_manage.php">', '</a>')), 'info');
 	
 	$this->render('default.flash');
 	
-	$form = $this->getForm(null, array('q'=>"/modules/Translation/translationMergeProcess.php"), true, 'TheFOrm', true);
+	$form = $this->getForm(null, array('q'=>"/modules/Translation/translationMergeProcess.php"), true, 'TheForm', true);
 	
 	$el = $form->addElement('select', 'code', '');
 	$el->nameDisplay = 'Language';
